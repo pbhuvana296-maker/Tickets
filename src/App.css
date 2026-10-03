@@ -1,0 +1,679 @@
+
+/* =====================================
+   GLOBAL
+===================================== */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  background: #151521;
+}
+
+/* =====================================
+   MAIN PAGE
+===================================== */
+
+.cinema-page {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  height: 100dvh;
+  min-height: 0;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+/* =====================================
+   BACKGROUND
+===================================== */
+
+.cinema-background {
+  position: absolute;
+  inset: -25px;
+
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  filter: blur(8px);
+  transform: scale(1.08);
+
+  z-index: -2;
+}
+
+.background-overlay {
+  position: absolute;
+  inset: 0;
+
+  background:
+    radial-gradient(
+      circle at 15% 30%,
+      rgba(255, 166, 62, 0.45),
+      transparent 45%
+    ),
+    radial-gradient(
+      circle at 85% 25%,
+      rgba(61, 115, 194, 0.45),
+      transparent 45%
+    ),
+    linear-gradient(
+      180deg,
+      rgba(12, 14, 26, 0.2),
+      rgba(12, 12, 25, 0.78)
+    );
+
+  z-index: -1;
+}
+
+/* =====================================
+   TICKET STAGE
+===================================== */
+
+.ticket-stage {
+  position: absolute;
+  inset: 0;
+
+  width: 100%;
+  height: 100%;
+
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+
+  overflow: hidden;
+}
+
+/* =====================================
+   GOLD PIPE
+===================================== */
+
+.gold-pipe {
+  position: absolute;
+
+  top: 7vh;
+  left: 50%;
+
+  transform: translateX(-50%);
+
+  width: 340px;
+  height: 23px;
+
+  z-index: 30;
+
+  border-radius: 20px;
+
+  background: linear-gradient(
+    180deg,
+    #fff09a 0%,
+    #ffd94d 15%,
+    #ffad00 55%,
+    #e58b00 100%
+  );
+
+  border: 2px solid #ffc02f;
+
+  box-shadow:
+    0 5px 15px rgba(0, 0, 0, 0.35),
+    inset 0 2px 5px rgba(255, 255, 255, 0.65),
+    0 0 12px rgba(255, 174, 0, 0.2);
+}
+
+.pipe-body {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.pipe-highlight {
+  position: absolute;
+
+  top: 3px;
+  left: 8%;
+
+  width: 84%;
+  height: 3px;
+
+  border-radius: 50%;
+
+  background: rgba(255, 255, 255, 0.7);
+}
+
+/* PIPE OPENING */
+
+.pipe-opening {
+  position: absolute;
+
+  bottom: -11px;
+  left: 50%;
+
+  transform: translateX(-50%);
+
+  width: 90px;
+  height: 20px;
+
+  border-radius: 0 0 25px 25px;
+
+  background: linear-gradient(
+    180deg,
+    #e99b00,
+    #9b5a00
+  );
+
+  border-bottom: 5px solid #a86600;
+
+  overflow: visible;
+}
+
+.opening-dark {
+  position: absolute;
+
+  top: 0;
+  left: 9px;
+
+  width: 72px;
+  height: 13px;
+
+  border-radius: 0 0 20px 20px;
+
+  background: #20160c;
+
+  z-index: 2;
+}
+
+/* =====================================
+   RECEIPT SLOT
+===================================== */
+
+.receipt-slot {
+  position: absolute;
+
+  top: calc(7vh + 25px);
+  left: 50%;
+
+  transform: translateX(-50%);
+
+  width: 313px;
+
+  height: calc(100dvh - 7vh - 38px);
+
+  overflow: hidden;
+
+  z-index: 10;
+}
+
+/* =====================================
+   RECEIPT ANIMATION
+===================================== */
+
+.receipt-animation {
+  position: absolute;
+
+  top: 0;
+  left: 0;
+
+  width: 100%;
+
+  transform: scale(var(--receipt-scale, 1));
+  transform-origin: top center;
+
+  will-change: clip-path;
+}
+
+/* =====================================
+   WHITE RECEIPT
+===================================== */
+
+.movie-receipt {
+  position: relative;
+
+  width: 313px;
+  min-height: 630px;
+
+  padding: 22px 19px 25px;
+
+  background: #fffefa;
+
+  color: #171717;
+
+  border-radius: 0 0 12px 12px;
+
+  box-shadow:
+    0 12px 30px rgba(0, 0, 0, 0.2);
+}
+
+/* =====================================
+   RECEIPT TOP
+===================================== */
+
+.receipt-top {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+
+  text-align: center;
+}
+
+.receipt-top span {
+  font-size: 15px;
+  font-weight: 900;
+  letter-spacing: 1.5px;
+}
+
+.receipt-top small {
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: #858585;
+}
+
+/* =====================================
+   DIVIDER
+===================================== */
+
+.receipt-divider {
+  width: 100%;
+  height: 1px;
+
+  margin: 14px 0;
+
+  background: #d9d6ce;
+}
+
+.receipt-divider.dotted {
+  background: none;
+  border-top: 1px dashed #cfcac0;
+}
+
+/* =====================================
+   MOVIE INFORMATION
+===================================== */
+
+.movie-info {
+  text-align: center;
+}
+
+.movie-info small {
+  display: block;
+
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 2px;
+
+  color: #8c8c8c;
+
+  margin-bottom: 10px;
+}
+
+.movie-info h1 {
+  font-size: 20px;
+  font-weight: 900;
+  letter-spacing: 0.5px;
+
+  margin-bottom: 8px;
+}
+
+.movie-info p {
+  font-size: 11px;
+  color: #777;
+}
+
+/* =====================================
+   TICKET DETAILS
+===================================== */
+
+.ticket-details {
+  display: grid;
+
+  grid-template-columns: 1fr 1fr;
+
+  gap: 19px 10px;
+}
+
+.ticket-details > div,
+.booking-info > div {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.ticket-details span,
+.booking-info span {
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: #898989;
+}
+
+.ticket-details strong,
+.booking-info strong {
+  font-size: 12px;
+  font-weight: 800;
+}
+
+/* =====================================
+   BOOKING INFORMATION
+===================================== */
+
+.booking-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* =====================================
+   PRICE SECTION
+===================================== */
+
+.price-section {
+  margin-top: 16px;
+}
+
+.price-row {
+  display: flex;
+  justify-content: space-between;
+
+  margin-bottom: 10px;
+
+  font-size: 11px;
+  color: #555;
+}
+
+.price-row.total {
+  border-top: 1px dashed #ccc;
+
+  padding-top: 12px;
+  margin-top: 10px;
+
+  font-size: 13px;
+  font-weight: 800;
+
+  color: #151515;
+}
+
+/* =====================================
+   PAYMENT STATUS
+===================================== */
+
+.payment-status {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 7px;
+
+  margin: 12px 0;
+
+  padding: 9px;
+
+  border-radius: 20px;
+
+  background: #e1f8ed;
+
+  color: #07976b;
+
+  font-size: 10px;
+  font-weight: 800;
+}
+
+.payment-status span {
+  color: #09b77e;
+}
+
+/* =====================================
+   BARCODE
+===================================== */
+
+.barcode-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  margin-top: 12px;
+}
+
+.barcode {
+  display: flex;
+
+  width: 100%;
+  height: 43px;
+
+  align-items: stretch;
+  justify-content: space-between;
+  overflow: hidden;
+}
+
+.barcode i {
+  display: block;
+
+  flex: 1;
+
+  background: #202431;
+
+  margin-right: 3px;
+}
+
+.barcode i:nth-child(3n) {
+  flex: 2;
+}
+
+.barcode i:nth-child(4n) {
+  flex: 0.6;
+}
+
+.barcode i:nth-child(5n) {
+  margin-right: 5px;
+}
+
+.barcode-section small {
+  margin-top: 8px;
+
+  font-size: 9px;
+  letter-spacing: 1.5px;
+
+  color: #777;
+}
+
+/* =====================================
+   RECEIPT FOOTER
+===================================== */
+
+.receipt-footer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  gap: 5px;
+
+  margin-top: 16px;
+  text-align: center;
+}
+
+.receipt-footer strong {
+  font-size: 15px;
+  letter-spacing: 2px;
+}
+
+.receipt-footer span {
+  font-size: 9px;
+  letter-spacing: 1.5px;
+  color: #888;
+}
+
+/* =====================================
+   TORN EDGE
+===================================== */
+
+.receipt-tear {
+  position: absolute;
+
+  bottom: -7px;
+  left: 0;
+
+  width: 100%;
+  height: 14px;
+
+  background:
+    linear-gradient(
+      135deg,
+      transparent 50%,
+      #fffefa 50%
+    ) 0 0 / 14px 14px repeat-x;
+}
+
+/* =====================================
+   COLORFUL PAPER EXPLOSION
+===================================== */
+
+.paper-burst {
+  position: absolute;
+
+  top: 50%;
+  left: 50%;
+
+  width: 1px;
+  height: 1px;
+
+  z-index: 10;
+
+  pointer-events: none;
+  overflow: visible;
+}
+
+.burst-paper {
+  position: absolute;
+
+  top: 0;
+  left: 0;
+
+  width: 12px;
+  height: 19px;
+
+  border-radius: 2px;
+
+  box-shadow:
+    0 3px 8px rgba(0, 0, 0, 0.22);
+
+  will-change: transform, opacity;
+}
+
+.burst-paper.paper-1 {
+  width: 16px;
+  height: 8px;
+}
+
+.burst-paper.paper-2 {
+  width: 9px;
+  height: 15px;
+}
+
+.burst-paper.paper-3 {
+  width: 14px;
+  height: 9px;
+  border-radius: 50%;
+}
+
+.burst-paper.paper-4 {
+  width: 19px;
+  height: 6px;
+}
+
+/* =====================================
+   RESPONSIVE DESKTOP
+===================================== */
+
+@media (max-height: 750px) {
+
+  .receipt-animation {
+    --receipt-scale: 0.90;
+  }
+
+  .receipt-slot {
+    top: calc(6vh + 25px);
+    height: calc(100dvh - 6vh - 35px);
+  }
+
+  .gold-pipe {
+    top: 6vh;
+  }
+}
+
+@media (max-height: 650px) {
+
+  .receipt-animation {
+    --receipt-scale: 0.78;
+  }
+
+  .gold-pipe {
+    top: 3vh;
+  }
+
+  .receipt-slot {
+    top: calc(3vh + 25px);
+    height: calc(100dvh - 3vh - 30px);
+  }
+}
+
+@media (max-height: 520px) {
+
+  .receipt-animation {
+    --receipt-scale: 0.62;
+  }
+
+  .gold-pipe {
+    top: 2vh;
+  }
+
+  .receipt-slot {
+    top: calc(2vh + 25px);
+  }
+}
+
+/* =====================================
+   MOBILE
+===================================== */
+
+@media (max-width: 600px) {
+
+  .gold-pipe {
+    width: 290px;
+  }
+
+  .receipt-slot {
+    width: 290px;
+  }
+
+  .movie-receipt {
+    width: 313px;
+  }
+
+  .receipt-animation {
+    --receipt-scale: 0.92;
+  }
+}
+
+@media (max-width: 600px) and (max-height: 700px) {
+
+  .receipt-animation {
+    --receipt-scale: 0.80;
+  }
+}
+
+@media (max-width: 380px) {
+
+  .receipt-animation {
+    --receipt-scale: 0.86;
+  }
+}
