@@ -1,5 +1,5 @@
-
 import { motion } from "framer-motion";
+import { useEffect, useState } from "react";
 import bgImage from "./assets/images/image.jpg";
 import "./App.css";
 
@@ -35,7 +35,58 @@ const paperColors = [
   "#2ec4b6",
 ];
 
-// Confetti explosion directions
+// =====================================
+// 3 DIFFERENT TICKETS
+// =====================================
+
+const tickets = [
+  {
+    movie: "PREMIUM CINEMA",
+    subtitle: "Cinema Experience",
+    date: "03 OCT 2026",
+    time: "07:30 PM",
+    seat: "G-12",
+    screen: "04",
+    bookingId: "BK82941",
+    ticket: "01",
+    ticketPrice: "₹199",
+    convenienceFee: "₹20",
+    total: "₹219",
+  },
+
+  {
+    movie: "MOVIE NIGHT",
+    subtitle: "The Ultimate Movie Experience",
+    date: "10 OCT 2026",
+    time: "08:00 PM",
+    seat: "H-08",
+    screen: "05",
+    bookingId: "BK73652",
+    ticket: "02",
+    ticketPrice: "₹249",
+    convenienceFee: "₹25",
+    total: "₹274",
+  },
+
+  {
+    movie: "VIP PREMIERE",
+    subtitle: "Exclusive Premiere Show",
+    date: "18 OCT 2026",
+    time: "09:15 PM",
+    seat: "VIP-03",
+    screen: "01",
+    bookingId: "BK95173",
+    ticket: "03",
+    ticketPrice: "₹399",
+    convenienceFee: "₹30",
+    total: "₹429",
+  },
+];
+
+// =====================================
+// CONFETTI DIRECTIONS
+// =====================================
+
 const papers = [
   { x: -210, y: -145, rotate: -55 },
   { x: -175, y: -210, rotate: 35 },
@@ -87,6 +138,22 @@ const papers = [
 ];
 
 function App() {
+  // =====================================
+  // CHANGE TICKET AFTER EVERY FULL CYCLE
+  // =====================================
+
+  const [ticketIndex, setTicketIndex] = useState(0);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setTicketIndex((prev) => (prev + 1) % tickets.length);
+    }, TOTAL_CYCLE * 1000);
+
+    return () => clearInterval(timer);
+  }, []);
+
+  const ticket = tickets[ticketIndex];
+
   return (
     <main className="cinema-page">
 
@@ -123,7 +190,6 @@ function App() {
                       backgroundColor:
                         paperColors[index % paperColors.length],
                     }}
-
                     initial={{
                       x: 0,
                       y: 0,
@@ -131,7 +197,6 @@ function App() {
                       scale: 0,
                       opacity: 0,
                     }}
-
                     animate={{
                       x: [
                         0,
@@ -158,15 +223,16 @@ function App() {
 
                       opacity: [0, 1, 1, 0],
                     }}
-
                     transition={{
                       duration: TOTAL_CYCLE,
 
                       times: [
                         0,
                         BURST_START / TOTAL_CYCLE,
-                        (BURST_START + BURST_DURATION * 0.6) / TOTAL_CYCLE,
-                        (BURST_START + BURST_DURATION) / TOTAL_CYCLE,
+                        (BURST_START + BURST_DURATION * 0.6) /
+                          TOTAL_CYCLE,
+                        (BURST_START + BURST_DURATION) /
+                          TOTAL_CYCLE,
                       ],
 
                       ease: "easeOut",
@@ -186,11 +252,9 @@ function App() {
 
           <motion.div
             className="receipt-animation"
-
             initial={{
               clipPath: "inset(0 0 100% 0)",
             }}
-
             animate={{
               clipPath: [
                 "inset(0 0 100% 0)",
@@ -199,14 +263,14 @@ function App() {
                 "inset(100% 0 0% 0)",
               ],
             }}
-
             transition={{
               duration: TOTAL_CYCLE,
 
               times: [
                 0,
                 PRINT_DURATION / TOTAL_CYCLE,
-                (PRINT_DURATION + HOLD_DURATION) / TOTAL_CYCLE,
+                (PRINT_DURATION + HOLD_DURATION) /
+                  TOTAL_CYCLE,
                 1,
               ],
 
@@ -216,7 +280,10 @@ function App() {
             }}
           >
 
-            {/* RECEIPT */}
+            {/* =====================================
+                RECEIPT
+            ===================================== */}
+
             <div className="movie-receipt">
 
               {/* TOP */}
@@ -232,9 +299,9 @@ function App() {
 
                 <small>NOW SHOWING</small>
 
-                <h1>PREMIUM CINEMA</h1>
+                <h1>{ticket.movie}</h1>
 
-                <p>Cinema Experience</p>
+                <p>{ticket.subtitle}</p>
 
               </div>
 
@@ -245,22 +312,22 @@ function App() {
 
                 <div>
                   <span>DATE</span>
-                  <strong>03 OCT 2026</strong>
+                  <strong>{ticket.date}</strong>
                 </div>
 
                 <div>
                   <span>TIME</span>
-                  <strong>07:30 PM</strong>
+                  <strong>{ticket.time}</strong>
                 </div>
 
                 <div>
                   <span>SEAT</span>
-                  <strong>G-12</strong>
+                  <strong>{ticket.seat}</strong>
                 </div>
 
                 <div>
                   <span>SCREEN</span>
-                  <strong>04</strong>
+                  <strong>{ticket.screen}</strong>
                 </div>
 
               </div>
@@ -272,12 +339,12 @@ function App() {
 
                 <div>
                   <span>BOOKING ID</span>
-                  <strong>BK82941</strong>
+                  <strong>{ticket.bookingId}</strong>
                 </div>
 
                 <div>
                   <span>TICKET</span>
-                  <strong>01</strong>
+                  <strong>{ticket.ticket}</strong>
                 </div>
 
               </div>
@@ -287,17 +354,17 @@ function App() {
 
                 <div className="price-row">
                   <span>Ticket</span>
-                  <span>₹199</span>
+                  <span>{ticket.ticketPrice}</span>
                 </div>
 
                 <div className="price-row">
                   <span>Convenience Fee</span>
-                  <span>₹20</span>
+                  <span>{ticket.convenienceFee}</span>
                 </div>
 
                 <div className="price-row total">
                   <span>TOTAL</span>
-                  <strong>₹219</strong>
+                  <strong>{ticket.total}</strong>
                 </div>
 
               </div>
@@ -317,7 +384,9 @@ function App() {
                   ))}
                 </div>
 
-                <small>BK82941 • 03 OCT 2026</small>
+                <small>
+                  {ticket.bookingId} • {ticket.date}
+                </small>
 
               </div>
 
